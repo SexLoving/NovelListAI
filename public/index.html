@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杨国辉 - 采购专家的个人名片</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #c9a227;
+            --accent-light: #e8d48a;
+            --border: #2a2a2a;
+            --font-display: 'Noto Serif SC', serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Background Effects */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-effects::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(201, 162, 39, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(201, 162, 39, 0.05) 0%, transparent 50%);
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        .bg-effects::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-2%, -2%) rotate(1deg); }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .name {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-light) 50%, var(--text-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        .title {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-period {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .card-subtitle {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .card-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-content li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 6px;
+        }
+
+        .card-content li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .skill-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent);
+        }
+
+        .skill-title {
+            font-weight: 600;
+            color: var(--accent-light);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .skill-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Contact */
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .contact-value {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .contact-value a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer span {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 16px;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="name">杨国辉</h1>
+            <p class="title">资深采购专家</p>
+        </header>
+
+        <!-- 求职意向 -->
+        <section class="section">
+            <h2 class="section-title">求职意向</h2>
+            <div class="card">
+                <div class="card-content">
+                    <p>寻求 <strong>采购管理</strong> 方向的工作机会，专注于电子元器件采购领域，擅长供应链优化与成本控制。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section class="section">
+            <h2 class="section-title">工作经历</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">东莞市晶品电子科技有限公司</span>
+                    <span class="card-period">2022.09 - 至今</span>
+                </div>
+                <div class="card-subtitle">贸易采购</div>
+                <div class="card-content">
+                    <ul>
+                        <li>每月开发并引入优质供应商，通过有效谈判实现常用物料采购成本平均降低</li>
+                        <li>主导样品开发全流程跟进，确保技术匹配与按时交付</li>
+                        <li>积极搜寻、评估并推动市场替代物料方案落地，成功应用于多个项目</li>
+                        <li>定期进行电子元器件市场行情与趋势分析，为业务部门提供采购策略建议</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">东莞丹瑞贸易有限公司</span>
+                    <span class="card-period">2018.11 - 2022.09</span>
+                </div>
+                <div class="card-subtitle">贸易采购</div>
+                <div class="card-content">
+                    <ul>
+                        <li>拓展并优化华南区域供应商资源，成功引入高性价比核心供应商</li>
+                        <li>主导跨部门协作，优化采购合同关键条款，将平均交货周期缩短</li>
+                        <li>定期实地考察供应商，评估其产能、质量体系及技术能力</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">东莞市弘康药业有限公司</span>
+                    <span class="card-period">2015.03 - 2018.10</span>
+                </div>
+                <div class="card-subtitle">仓库组长</div>
+                <div class="card-content">
+                    <ul>
+                        <li>带领10人仓库团队，优化PDA库存调拨流程，提高库存准确性</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">广东合普动力科技有限公司</span>
+                    <span class="card-period">2010.08 - 2015.01</span>
+                </div>
+                <div class="card-subtitle">PMC（生产计划与物料控制）</div>
+                <div class="card-content">
+                    <ul>
+                        <li>负责MRP计划制定与执行，高效协调采购与生产部门</li>
+                        <li>建立物料供应风险预警机制，提前识别并应对潜在断料风险</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心优势 -->
+        <section class="section">
+            <h2 class="section-title">核心优势</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-title">供应链管理</div>
+                    <div class="skill-desc">多年采购经验，熟悉供应商开发与管理，成本谈判与优化，U8/金蝶ERP系统操作</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-title">市场洞察</div>
+                    <div class="skill-desc">熟悉精密电阻、MOS管、TVS管、NTC等元器件市场行情，能快速匹配供应商资源</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-title">AI工具应用</div>
+                    <div class="skill-desc">熟练使用DeepSeek、ChatGPT、Kimi等AI工具提升工作效率</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-title">跨部门协同</div>
+                    <div class="skill-desc">擅长跨部门沟通协调，确保采购任务高效推进与交付</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育背景 -->
+        <section class="section">
+            <h2 class="section-title">教育背景</h2>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">华大理工</span>
+                    <span class="card-period">2008 - 2010</span>
+                </div>
+                <div class="card-subtitle">大专</div>
+                <div class="card-content">
+                    <p>主修：电子基础、计算机应用基础、计算机网络基础</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系方式 -->
+        <section class="section">
+            <h2 class="section-title">联系方式</h2>
+            <div class="contact-list">
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-info">
+                        <div class="contact-label">手机</div>
+                        <div class="contact-value"><a href="tel:YOUR_PHONE">YOUR_PHONE</a></div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-info">
+                        <div class="contact-label">邮箱</div>
+                        <div class="contact-value"><a href="mailto:YOUR_EMAIL">YOUR_EMAIL</a></div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-info">
+                        <div class="contact-label">地址</div>
+                        <div class="contact-value">YOUR_ADDRESS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 · 专注电子元器件采购领域近10年</p>
+        </footer>
+    </div>
+</body>
+</html>
